@@ -35,7 +35,7 @@ int	main(int argc, char **argv)
 			printf("%s\n", ft_strstr(argv[i - 1], argv[i]));
 //			printf("%s\n", strstr(argv[i - 1], argv[i]));
 //			printf("%i\n", argc);
-//			ft_putnbr_base(size, argv[i]);
+//			ft_putnbr_base(nb, argv[i]);
 			/* incrementation */
 			i++;
 		}
